@@ -21,4 +21,3 @@ As a consumer I want to receive the best flight offers between Melbourne and Bri
 - Loading spinner
 - A form to personalise the results
 - Make the offer list a directive
-- 
