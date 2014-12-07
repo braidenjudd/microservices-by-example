@@ -1,0 +1,27 @@
+<md-content>
+	<md-toolbar>
+		<h2 class="md-toolbar-tools">
+			<span>Microservices by Example</span>
+		</h2>
+	</md-toolbar>
+
+	<md-tabs md-selected="selectedIndex">
+		<md-tab ng-repeat="tab in tabs" md-on-select="announceSelected(tab)" md-on-deselect="announceDeselected(tab)" ng-disabled="tab.disabled" label="{{tab.title}}">
+			<div class="demo-tab tab{{$index%4}}" layout="column" layout-fill layout-align="space-around">
+				<div layout="row">
+					<md-list>
+						<md-item ng-repeat="offer in offers">
+							<md-item-content>
+								<div class="md-tile-content">
+									<h3>{{offer.id}}</h3>
+									<h4>{{offer.cost}}</h4>
+									<p>{{offer.description}}</p>
+								</div>
+							</md-item-content>
+						</md-item>
+					</md-list>
+				</div>
+			</div>
+		</md-tab>
+	</md-tabs>
+</md-content>

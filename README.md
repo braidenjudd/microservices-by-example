@@ -15,3 +15,10 @@ As a consumer I want to receive the best flight offers between Melbourne and Bri
 
 ## Running the code
 
+# TODO
+- Create config with the two urls
+- Make changing tabs load the data from different URL
+- Loading spinner
+- A form to personalise the results
+- Make the offer list a directive
+- 
