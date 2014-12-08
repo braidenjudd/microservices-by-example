@@ -1,0 +1,7 @@
+.grid {
+    flex-wrap:wrap;
+}
+
+.padded {
+	padding: 20px;
+}

@@ -1,25 +1,42 @@
 <md-content>
 	<md-toolbar>
-		<h2 class="md-toolbar-tools">
+		<h1 class="md-toolbar-tools">
 			<span>Microservices by Example</span>
-		</h2>
+		</h1>
 	</md-toolbar>
 
 	<md-tabs md-selected="selectedIndex">
 		<md-tab ng-repeat="tab in tabs" md-on-select="announceSelected(tab)" md-on-deselect="announceDeselected(tab)" ng-disabled="tab.disabled" label="{{tab.title}}">
 			<div class="demo-tab tab{{$index%4}}" layout="column" layout-fill layout-align="space-around">
-				<div layout="row">
-					<md-list>
-						<md-item ng-repeat="offer in offers">
-							<md-item-content>
-								<div class="md-tile-content">
-									<h3>{{offer.id}}</h3>
-									<h4>{{offer.cost}}</h4>
-									<p>{{offer.description}}</p>
-								</div>
-							</md-item-content>
-						</md-item>
-					</md-list>
+				<md-toolbar md-theme="green">
+					<h2 class="md-toolbar-tools">
+						<span>Search for your Flight</span>
+					</h2>
+				</md-toolbar>
+				<md-content>
+					<form>
+						<div layout="row" layout-align="center" class="grid">
+		        			<md-text-float label="Title" ng-model="searchParams.title" class="padded"></md-text-float>
+		        			<md-text-float label="eMail" ng-model="searchParams.email" class="padded"></md-text-float>
+						</div>
+						<div layout="row" layout-align="center" class="grid">
+							<md-button class="md-raised md-primary" ng-click="search(searchParams)">Search</md-button>
+						</div>
+					</form><br>
+				</md-content>
+
+				<md-toolbar md-theme="green" ng-hide="offers === undefined">
+					<h2 class="md-toolbar-tools">
+						<span>Your Offers</span>
+					</h2>
+				</md-toolbar>
+				<div layout="row" layout-align="center" class="grid" ng-hide="offers === undefined">
+					<md-card ng-repeat="offer in offers" flex="30">
+						<img ng-src="img/{{offer.logo}}" alt="Washed Out">
+						<h2 ng-bind="offer.cost | currency"></h2>
+						<p><span ng-bind="offer.aircraft" /></p>
+						<p><span ng-bind="offer.flight" /></p>
+					</md-card>
 				</div>
 			</div>
 		</md-tab>
