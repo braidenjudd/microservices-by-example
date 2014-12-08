@@ -25,12 +25,15 @@
 					</form><br>
 				</md-content>
 
-				<md-toolbar md-theme="green" ng-hide="offers === undefined">
+				<md-toolbar md-theme="green" ng-hide="offers === undefined || loading.offers">
 					<h2 class="md-toolbar-tools">
 						<span>Your Offers</span>
 					</h2>
 				</md-toolbar>
-				<div layout="row" layout-align="center" class="grid" ng-hide="offers === undefined">
+				<div layout="row" layout-align="center" layout-sm="column" layout-align="space-around" ng-show="loading.offers">
+					<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+				</div>
+				<div layout="row" layout-align="center" class="grid" ng-hide="offers === undefined || loading.offers">
 					<md-card ng-repeat="offer in offers" flex="30">
 						<img ng-src="img/{{offer.logo}}" alt="Washed Out">
 						<h2 ng-bind="offer.cost | currency"></h2>

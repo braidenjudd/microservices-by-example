@@ -11,9 +11,10 @@ phonecatApp.config(['$routeProvider', function($routeProvider) {
 		});
 }]);
 
-phonecatApp.controller('OfferController', ['$scope', '$http', function ($scope, $http) {
+phonecatApp.controller('OfferController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 	$scope.offers = undefined;
 	$scope.selectedIndex = 1;
+	$scope.loading = {};
 
 	$scope.tabs = [{
 		id: 0,
@@ -27,16 +28,22 @@ phonecatApp.controller('OfferController', ['$scope', '$http', function ($scope, 
 
     $scope.announceSelected = function (tab) {
     	$scope.offers = undefined;
+    	$scope.loading.offers = false;
     };
 
     $scope.announceDeselected = function (tab) {
     	$scope.offers = undefined;
+    	$scope.loading.offers = false;
     };
 
     $scope.search = function (searchParams) {
-    	$http.get('http://localhost:8081/offers').success(function(data) {
-			console.log(data.offers);
-			$scope.offers = data.offers;
-		});
+    	$scope.loading.offers = true;
+    	$timeout(function () {
+    		$http.get('http://localhost:8081/offers').success(function(data) {
+				console.log(data.offers);
+				$scope.offers = data.offers;
+				$scope.loading.offers = false;
+			});
+    	}, 5000);
     };
 }]);
