@@ -37,8 +37,10 @@
 					<md-card ng-repeat="offer in offers" flex="30">
 						<img ng-src="img/{{offer.logo}}" alt="Washed Out">
 						<h2 ng-bind="offer.cost | currency"></h2>
-						<p><span ng-bind="offer.aircraft" /></p>
-						<p><span ng-bind="offer.flight" /></p>
+						<h4 ng-bind="offer.aircraft" />
+						<h4 ng-bind="offer.flight" />
+						<h4 ng-bind="offer.start" />
+						<h4 ng-bind="offer.end" />
 					</md-card>
 				</div>
 			</div>
