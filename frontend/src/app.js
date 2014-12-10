@@ -1,4 +1,4 @@
-var phonecatApp = angular.module('msApp', ['ngRoute', 'ngMaterial']);
+var phonecatApp = angular.module('msApp', ['ngRoute', 'ngMaterial', 'firebase']);
 
 phonecatApp.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
@@ -11,7 +11,8 @@ phonecatApp.config(['$routeProvider', function($routeProvider) {
 		});
 }]);
 
-phonecatApp.controller('OfferController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+phonecatApp.controller('OfferController', ['$scope', '$http', '$timeout', '$firebase', 
+	function ($scope, $http, $timeout, $firebase) {
 	$scope.offers = undefined;
 	$scope.selectedIndex = 1;
 	$scope.loading = {};
@@ -39,11 +40,15 @@ phonecatApp.controller('OfferController', ['$scope', '$http', '$timeout', functi
     $scope.search = function (searchParams) {
     	$scope.loading.offers = true;
     	$timeout(function () {
-    		$http.get('http://localhost:8081/offers').success(function(data) {
-				console.log(data.offers);
-				$scope.offers = data.offers;
+    		$http.get('http://localhost:8080/offers').success(function(data) {
+    			var firebaseURL = data.offerListURL;
+    			var offerListRef = new Firebase(firebaseURL);
+
+    			var sync = $firebase(offerListRef);
+
+				$scope.offers = sync.$asArray();
 				$scope.loading.offers = false;
 			});
-    	}, 5000);
+    	}, 2000);
     };
 }]);
