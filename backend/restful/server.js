@@ -1,5 +1,6 @@
 var express = require('express');
 var cors = require('cors');
+var moment = require('moment');
 var app = express();
 var bodyParser = require('body-parser');
 
@@ -23,7 +24,9 @@ router.get('/', function(req, res) {
 				description: "Platinum Offer",
 				aircraft: "A388",
 				flight: "QF8",
-				logo: "qantas.png"
+				logo: "qantas.png",
+				start: moment(),
+				end: moment()
 			}, {
 				id: 1,
 				cost: 99,
