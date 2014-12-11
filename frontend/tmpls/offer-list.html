@@ -4,20 +4,28 @@
 			<span>Microservices by Example</span>
 		</h1>
 	</md-toolbar>
-
 	<md-tabs md-selected="selectedIndex">
 		<md-tab ng-repeat="tab in tabs" md-on-select="announceSelected(tab)" md-on-deselect="announceDeselected(tab)" ng-disabled="tab.disabled" label="{{tab.title}}">
 			<div class="demo-tab tab{{$index%4}}" layout="column" layout-fill layout-align="space-around">
 				<md-toolbar md-theme="green">
 					<h2 class="md-toolbar-tools">
-						<span>Search for your Flight</span>
+						<span>FlightMasher! Search for your Flight</span>
 					</h2>
 				</md-toolbar>
-				<md-content>
+				
+				<md-content class="md-padding">
+
 					<form>
 						<div layout="row" layout-align="center" class="grid">
-		        			<md-text-float label="Title" ng-model="searchParams.title" class="padded"></md-text-float>
-		        			<md-text-float label="eMail" ng-model="searchParams.email" class="padded"></md-text-float>
+		        			<md-text-float label="Name" ng-model="searchParams.name" class="padded"></md-text-float>
+		        			<md-text-float label="eMail" ng-model="searchParams.email" class="padded" type="email"></md-text-float>
+						</div>
+						<div layout-align="left">
+							<h3>Flight Time: <span ng-bind="searchParams.start | hourtime"></span> to <span ng-bind="searchParams.end | hourtime"></span></h3>
+						</div>
+						<div layout-align="center">
+							<md-slider md-discrete ng-model="searchParams.start" step="1" min="6" max="22" aria-label="rating" ng-change="updateFlightTime(searchParams.start, searchParams.end)"></md-slider>
+							<md-slider md-discrete ng-model="searchParams.end" step="1" min="6" max="22" aria-label="rating" ng-change="updateFlightTime(searchParams.start, searchParams.end)"></md-slider>
 						</div>
 						<div layout="row" layout-align="center" class="grid">
 							<md-button class="md-raised md-primary" ng-click="search(searchParams)">Search</md-button>

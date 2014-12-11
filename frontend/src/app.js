@@ -11,11 +11,14 @@ phonecatApp.config(['$routeProvider', function($routeProvider) {
 		});
 }]);
 
+phonecatApp.filter('hourtime', function() {
+  	return function(input) {
+    	return String("0" + input).slice(-2) + "00";
+  	};
+});
+
 phonecatApp.controller('OfferController', ['$scope', '$http', '$timeout', '$firebase', 
 	function ($scope, $http, $timeout, $firebase) {
-	$scope.offers = undefined;
-	$scope.selectedIndex = 1;
-	$scope.loading = {};
 
 	$scope.tabs = [{
 		id: 0,
@@ -27,6 +30,18 @@ phonecatApp.controller('OfferController', ['$scope', '$http', '$timeout', '$fire
 		content: "Using the restful offer service."
 	}];
 
+	function Activate() { 
+		$scope.offers = undefined;
+		$scope.searchParams = {
+			start: 6,
+			end: 22
+		};
+		$scope.selectedIndex = 1;
+		$scope.loading = {};
+	};
+
+	Activate();
+
     $scope.announceSelected = function (tab) {
     	$scope.offers = undefined;
     	$scope.loading.offers = false;
@@ -35,6 +50,12 @@ phonecatApp.controller('OfferController', ['$scope', '$http', '$timeout', '$fire
     $scope.announceDeselected = function (tab) {
     	$scope.offers = undefined;
     	$scope.loading.offers = false;
+    };
+
+    $scope.updateFlightTime = function (start, end) {
+    	if (start > end) {
+    		$scope.searchParams.end = start
+    	}
     };
 
     $scope.search = function (searchParams) {
