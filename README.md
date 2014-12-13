@@ -8,9 +8,8 @@ This repository shows a simple example of an offer generation system. This is im
 As a consumer I want to receive the best flight offers between Melbourne and Brisbane available to me. These offers should be personalised depending on my preferences. I can enter the following preferences
 
  - Level of Service (Full/Budget)
- - If I am a One World or Star Alliance FF
+ - If they are frequent flyer
  - Time of day
- - 
 
 ## The Implementations
 
@@ -26,3 +25,12 @@ As a consumer I want to receive the best flight offers between Melbourne and Bri
 - Loading spinner
 - A form to personalise the results
 - Make the offer list a directive
+
+Running the app
+
+## Make sure docker is up and running
+- boot2docker start
+- export DOCKER_HOST=tcp://192.168.59.103:2376
+- export DOCKER_CERT_PATH=/Users/braiden.judd/.boot2docker/certs/boot2docker-vm
+- export DOCKER_TLS_VERIFY=1
+

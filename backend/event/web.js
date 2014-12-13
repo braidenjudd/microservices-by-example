@@ -4,7 +4,8 @@ var app = express();
 var bodyParser = require('body-parser');
 var Firebase = require("firebase");
 var moment = require("moment");
-
+var amqp = require('amqp');
+var uuid = require('uuid');
 
 // configure firebase
 var firebaseURL = "https://ms-by-example.firebaseio.com/event-offers/"
@@ -20,71 +21,32 @@ var port = process.env.PORT || 8080;
 // server setup
 var router = express.Router();
 
-// setup the routes
-router.get('/', function(req, res) {
-
+router.post('/', function(req, res) {
 	// Create a new key
 	var offerList = offersRef.push({ });
 	var offerListId = offerList.key();
 	var offerListURL = firebaseURL + offerListId;
 
-	// TODO: Remove this, this will be done by the microservices
-	var offerListRef = new Firebase(offerListURL);
+	// Post a request to the queue
+	var connection = amqp.createConnection({ url: 'amqp://192.168.59.103:5672' });
+	connection.on('ready', function () {
+		connection.exchange('eventms', options={type:'fanout', autoDelete: false}, function(exchange) { 
+	      	var flight_offer_request = {
+	      		request: req.body,
+		  		solutions: [],
+		  		id: uuid.v4(),
+		  		timeout: 10000
+	  		};
 
-	offerListRef.push({
-		cost: 49,
-		description: "Platinum Offer",
-		aircraft: "A388",
-		flight: "QF8",
-		logo: "qantas.png"
+	  		console.log('[o] Requesting need for: ', flight_offer_request.id);
+	      	exchange.publish('', JSON.stringify(flight_offer_request), {});
+	 	});
 	});
 
-	offerListRef.push({
-		cost: 99,
-		description: "Gold Offer",
-		aircraft: "A388",
-		flight: "QF8",
-		logo: "qantas.png"
-	});
-
-	offerListRef.push({
-		cost: 49,
-		description: "Platinum Offer",
-		aircraft: "A388",
-		flight: "QF8",
-		logo: "qantas.png"
-	});
-
-	offerListRef.push({
-		id: 1,
-		cost: 49,
-		description: "Platinum Offer",
-		aircraft: "A322",
-		flight: "QF8",
-		logo: "tiger.gif"
-	});
-
-	offerListRef.push({
-		id: 1,
-		cost: 99,
-		description: "Gold Offer",
-		aircraft: "B738",
-		flight: "QF8",
-		logo: "virgin.gif"
-	});
-
-	offerListRef.push({
-		id: 1,
-		cost: 49,
-		description: "Platinum Offer",
-		aircraft: "B788",
-		flight: "QF8",
-		logo: "jetstar.png"
-	});
-
-	res.json({ 
+	// Set the location header
+	res.status(201).json({ 
 		offerListURL: offerListURL
-	});	
+	});
 });
 
 // register the routes

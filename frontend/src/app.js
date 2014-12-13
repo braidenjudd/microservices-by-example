@@ -61,7 +61,8 @@ phonecatApp.controller('OfferController', ['$scope', '$http', '$timeout', '$fire
     $scope.search = function (searchParams) {
     	$scope.loading.offers = true;
     	$timeout(function () {
-    		$http.get('http://localhost:8080/offers').success(function(data) {
+    		$http.post('http://localhost:8080/offers', searchParams).
+				success(function(data, status, headers, config) {
     			var firebaseURL = data.offerListURL;
     			var offerListRef = new Firebase(firebaseURL);
 
@@ -69,7 +70,7 @@ phonecatApp.controller('OfferController', ['$scope', '$http', '$timeout', '$fire
 
 				$scope.offers = sync.$asArray();
 				$scope.loading.offers = false;
-			});
+				});
     	}, 2000);
     };
 }]);
