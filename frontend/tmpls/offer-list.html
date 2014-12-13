@@ -50,20 +50,20 @@
 
 				<md-toolbar md-theme="green" ng-show="offers !== undefined || loading.offers">
 					<h2 class="md-toolbar-tools">
-						<span>Your Offers</span>
+						<span>Your Offers - Ordered by lowest price</span>
 					</h2>
 				</md-toolbar>
 				<div layout="row" layout-align="center" layout-sm="column" layout-align="space-around" ng-show="loading.offers">
 					<md-progress-circular md-mode="indeterminate"></md-progress-circular>
 				</div>
 				<div layout="row" layout-align="center" class="grid" ng-hide="offers === undefined || loading.offers">
-					<md-card ng-repeat="offer in offers" flex="30">
-						<img ng-src="img/{{offer.logo}}" alt="Washed Out">
+					<md-card ng-repeat="offer in offers | orderBy:cost" flex="30">
+						<img ng-src="img/{{offer.logo}}" alt="Logo">
 						<h2 ng-bind="offer.cost | currency"></h2>
-						<h4 ng-bind="offer.aircraft" />
-						<h4 ng-bind="offer.flight" />
-						<h4 ng-bind="offer.start" />
-						<h4 ng-bind="offer.end" />
+						<h3><span ng-bind="offer.description"></span></h3>
+						<h4>Aircraft Type: <span ng-bind="offer.aircraft" /></h4>
+						<h4>Flight #: <span ng-bind="offer.flight" /></h4>
+						<h4>Time: <span ng-bind="offer.start | hourtime"></span> to <span ng-bind="offer.end | hourtime"></span></h4>
 					</md-card>
 				</div>
 			</div>

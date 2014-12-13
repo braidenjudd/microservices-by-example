@@ -5,7 +5,6 @@ var bodyParser = require('body-parser');
 var Firebase = require("firebase");
 var moment = require("moment");
 var amqp = require('amqp');
-var uuid = require('uuid');
 
 // configure firebase
 var firebaseURL = "https://ms-by-example.firebaseio.com/event-offers/"
@@ -27,6 +26,8 @@ router.post('/', function(req, res) {
 	var offerListId = offerList.key();
 	var offerListURL = firebaseURL + offerListId;
 
+	console.log(req.body);
+
 	// Post a request to the queue
 	var connection = amqp.createConnection({ url: 'amqp://192.168.59.103:5672' });
 	connection.on('ready', function () {
@@ -34,7 +35,8 @@ router.post('/', function(req, res) {
 	      	var flight_offer_request = {
 	      		request: req.body,
 		  		solutions: [],
-		  		id: uuid.v4(),
+		  		id: offerListId,
+		  		url: offerListURL,
 		  		timeout: 10000
 	  		};
 

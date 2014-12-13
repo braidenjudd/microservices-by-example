@@ -11,17 +11,17 @@ var requires_solutions = function (solutions) {
 };
 
 var get_solutions = function (request) {
-	console.log(request);
+    console.log(request);
 
     var solutions = [];
 
     if (request.start <= 6 && request.end >= 6) {
         solutions.push({
-            cost: 169,
-            description: "Basic QANTAS fare",
+            cost: 159,
+            description: "Basic Virgin fare",
             aircraft: "A388",
-            flight: "QF610",
-            logo: "qantas.png",
+            flight: "VA841",
+            logo: "virgin.gif",
             start: 6,
             end: 8
         });  
@@ -29,23 +29,23 @@ var get_solutions = function (request) {
     
     if (request.start <= 12 && request.end >= 12) {
         solutions.push({
-            cost: 199,
-            description: "Basic QANTAS fare",
-            aircraft: "A388",
-            flight: "QF618",
-            logo: "qantas.png",
+            cost: 189,
+            description: "Basic Virgin fare",
+            aircraft: "B738",
+            flight: "VA845",
+            logo: "virgin.gif",
             start: 12,
             end: 14
         });  
     }
 
-	if (request.start <= 20 && request.end >= 20) {
+    if (request.start <= 20 && request.end >= 20) {
         solutions.push({
-            cost: 129,
-            description: "Basic QANTAS fare",
-            aircraft: "A388",
-            flight: "QF616",
-            logo: "qantas.png",
+            cost: 119,
+            description: "Basic Virgin fare",
+            aircraft: "B738",
+            flight: "VA849",
+            logo: "virgin.gif",
             start: 20,
             end: 22
         });  
@@ -64,8 +64,8 @@ connection.on('ready', function() {
                 if (requires_solutions(message.solutions)) {
                     message.solutions = get_solutions(message.request);
                     if (message.solutions.length > 0) {
-                		exchange.publish('', JSON.stringify(message), {});
-                		console.log('[x] Solutions offered for :', message.id);
+                        exchange.publish('', JSON.stringify(message), {});
+                        console.log('[x] Solutions offered for :', message.id);
                     }
                 }
             });
