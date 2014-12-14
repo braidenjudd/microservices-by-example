@@ -50,14 +50,15 @@
 
 				<md-toolbar md-theme="green" ng-show="offers !== undefined || loading.offers">
 					<h2 class="md-toolbar-tools">
-						<span>Your Offers - Ordered by lowest price</span>
+						<b><span ng-bind="offers.length || 0"></span> Offers</b> - Ordered by lowest price</span>
 					</h2>
+
 				</md-toolbar>
 				<div layout="row" layout-align="center" layout-sm="column" layout-align="space-around" ng-show="loading.offers">
 					<md-progress-circular md-mode="indeterminate"></md-progress-circular>
 				</div>
 				<div layout="row" layout-align="center" class="grid" ng-hide="offers === undefined || loading.offers">
-					<md-card ng-repeat="offer in offers | orderBy:cost" flex="30">
+					<md-card ng-repeat="offer in offers | orderBy:'cost'" flex="30">
 						<img ng-src="img/{{offer.logo}}" alt="Logo">
 						<h2 ng-bind="offer.cost | currency"></h2>
 						<h3><span ng-bind="offer.description"></span></h3>

@@ -30,7 +30,10 @@ phonecatApp.controller('OfferController', ['$scope', '$http', '$timeout', '$fire
 		content: "Using the restful offer service."
 	}];
 
+	Activate();
+
 	function Activate() { 
+		$scope.url = 'http://localhost:8080/offers';
 		$scope.offers = undefined;
 		$scope.searchParams = {
 			start: 6,
@@ -40,11 +43,18 @@ phonecatApp.controller('OfferController', ['$scope', '$http', '$timeout', '$fire
 		$scope.loading = {};
 	};
 
-	Activate();
-
     $scope.announceSelected = function (tab) {
     	$scope.offers = undefined;
     	$scope.loading.offers = false;
+    	
+    	if (tab.title == "Event")
+    	{
+    		$scope.url = 'http://localhost:8080/offers';
+    	}
+    	if (tab.title == "Restful")
+    	{
+    		$scope.url = 'http://localhost:8081/offers';
+    	}
     };
 
     $scope.announceDeselected = function (tab) {
@@ -60,17 +70,15 @@ phonecatApp.controller('OfferController', ['$scope', '$http', '$timeout', '$fire
 
     $scope.search = function (searchParams) {
     	$scope.loading.offers = true;
-    	$timeout(function () {
-    		$http.post('http://localhost:8080/offers', searchParams).
-				success(function(data, status, headers, config) {
-    			var firebaseURL = data.offerListURL;
-    			var offerListRef = new Firebase(firebaseURL);
+		$http.post($scope.url, searchParams).
+			success(function(data, status, headers, config) {
+			var firebaseURL = data.offerListURL;
+			var offerListRef = new Firebase(firebaseURL);
 
-    			var sync = $firebase(offerListRef);
+			var sync = $firebase(offerListRef);
 
-				$scope.offers = sync.$asArray();
-				$scope.loading.offers = false;
-				});
-    	}, 2000);
-    };
+			$scope.offers = sync.$asArray();
+			$scope.loading.offers = false;
+		});
+    };	
 }]);

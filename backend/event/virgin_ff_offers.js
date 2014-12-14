@@ -6,7 +6,7 @@ var delay = function random (low, high) {
 };
 
 var requires_solutions = function (request, solutions) {
-    return solutions.length === 0 && !(request.full == true);
+    return solutions.length === 0 && request.virgin == true;
 };
 
 var get_solutions = function (request) {
@@ -14,27 +14,15 @@ var get_solutions = function (request) {
 
     var solutions = [];
 
-    if (request.start <= 8 && request.end >= 8) {
+    if (request.start <= 10 && request.end >= 10) {
         solutions.push({
-            cost: 89,
-            description: "Basic Jetstar fare",
-            aircraft: "A322",
-            flight: "JQ866",
-            logo: "jetstar.png",
-            start: 8,
-            end: 10
-        });  
-    }
-
-    if (request.start <= 6 && request.end >= 6) {
-        solutions.push({
-            cost: 79,
-            description: "Basic Jetstar fare",
-            aircraft: "A322",
-            flight: "JQ862",
-            logo: "jetstar.png",
-            start: 6,
-            end: 8
+            cost: 119,
+            description: "Velocity Frequent Flyer",
+            aircraft: "B738",
+            flight: "VA828",
+            logo: "virgin.gif",
+            start: 10,
+            end: 12
         });  
     }
 

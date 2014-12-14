@@ -1,6 +1,10 @@
 var amqp = require('amqp');
 var connection = amqp.createConnection({ url: 'amqp://192.168.59.103:5672' });
 
+var delay = function random (low, high) {
+    return Math.round(Math.random() * (high - low) + low);
+};
+
 var requires_solutions = function (request, solutions) {
     return solutions.length === 0 && !(request.full == true);
 };
@@ -35,8 +39,11 @@ connection.on('ready', function() {
                 if (requires_solutions(message.request, message.solutions)) {
                     message.solutions = get_solutions(message.request);
                     if (message.solutions.length > 0) {
-                        exchange.publish('', JSON.stringify(message), {});
-                        console.log('[x] Solutions offered for :', message.id);
+                        var delay_time = delay(0, 6000);
+                        setTimeout(function() {
+                            exchange.publish('', JSON.stringify(message), {});
+                            console.log('[x] Solutions offered for :', message.id);
+                        }, delay_time);
                     }
                 }
             });
