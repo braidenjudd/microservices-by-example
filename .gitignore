@@ -2,3 +2,4 @@
 /backend/restful/node_modules
 /frontend/lib
 *.log
+*PID

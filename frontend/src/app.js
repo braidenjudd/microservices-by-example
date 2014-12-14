@@ -46,14 +46,18 @@ phonecatApp.controller('OfferController', ['$scope', '$http', '$timeout', '$fire
     $scope.announceSelected = function (tab) {
     	$scope.offers = undefined;
     	$scope.loading.offers = false;
-    	
+    	$scope.searchParams = {
+			start: 6,
+			end: 22
+		};
+			
     	if (tab.title == "Event")
     	{
-    		$scope.url = 'http://localhost:8080/offers';
+    		$scope.url = 'http://localhost:8081/offers';
     	}
     	if (tab.title == "Restful")
     	{
-    		$scope.url = 'http://localhost:8081/offers';
+    		$scope.url = 'http://localhost:8080/offers';
     	}
     };
 

@@ -16,16 +16,6 @@ As a consumer I want to receive the best flight offers between Melbourne and Bri
 ### Eventing
 
 ### RESTFul
-
-## Running the code
-
-# TODO
-- Create config with the two urls
-- Make changing tabs load the data from different URL
-- Loading spinner
-- A form to personalise the results
-- Make the offer list a directive
-
 Running the app
 
 ## Make sure docker is up and running
@@ -34,3 +24,9 @@ Running the app
 - export DOCKER_CERT_PATH=/Users/braiden.judd/.boot2docker/certs/boot2docker-vm
 - export DOCKER_TLS_VERIFY=1
 
+## Start the two backends (you have to have run npm install first)
+- ./backend/event/startEvent.sh
+- ./backend/event/startEvent.sh
+
+## Host the frontend folder (you need to run a bower install first)
+- cd ./frontend && python -m "SimpleHTTPServer"
