@@ -16,11 +16,11 @@ As a consumer I want to receive the best flight offers between Melbourne and Bri
 
 ### Eventing
 
-![Alt text](http://web.pragmaticyclist.io.s3-website-ap-southeast-2.amazonaws.com/img/bg11.JPG)
+![Alt text](http://web.pragmaticyclist.io.s3-website-ap-southeast-2.amazonaws.com/img/event_ms_arch class.png)
 
 ### Restful
 
-![Alt text](http://web.pragmaticyclist.io.s3-website-ap-southeast-2.amazonaws.com/img/bg11.JPG)
+![Alt text](http://web.pragmaticyclist.io.s3-website-ap-southeast-2.amazonaws.com/img/restful_ms_arch class.png)
 
 ## Running the app
 
