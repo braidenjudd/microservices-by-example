@@ -3,3 +3,4 @@
 /frontend/lib
 *.log
 *PID
+*LOG
